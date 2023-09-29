@@ -17,13 +17,17 @@ def db_call(query: str) -> Sequence:
     :return: list of tuples.
     """
     result = None
+
+    server_config = {
+        'user': 'root',
+        'password': '123',
+        'host': 'db',
+        'database': 'HumanFriends',
+        'port': 3306,
+    }
+
     try:
-        with connect(
-                host='localhost',
-                user='root',
-                password='',
-                database='HumanFriends'
-        ) as connection:
+        with connect(**server_config) as connection:
             with connection.cursor() as cursor:
                 cursor.execute(query)
                 result = cursor.fetchall()

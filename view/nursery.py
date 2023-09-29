@@ -18,7 +18,9 @@ def run_nursery() -> None:
 
     options = {'-a': '- animals;',
                '-c': '- commands;',
-               '-n': '- animal|command name;'}
+               '-n': '- animal|command name;',
+               '-t': '- type name;',
+               '-g': '- group name;'}
 
     print_help(commands, options)
     print()
@@ -52,6 +54,12 @@ def run_nursery() -> None:
             case 'show -a -c':
                 headers, query = queries.get_data('animals_and_commands')
                 print_db_query(headers, query)
+            case 'show -t':
+                headers, query = queries.get_data('type_list')
+                print_db_query(headers, query)
+            case 'show -g':
+                headers, query = queries.get_data('group_list')
+                print_db_query(headers, query)
             case 'show -a -n':
                 if queries.name_not_found('animals', 'animal_name', n_parameter):
                     print(f'No such animal - \'{n_parameter}\'')
@@ -72,6 +80,10 @@ def run_nursery() -> None:
                 queries.add_command()
             case 'add -a -c':
                 queries.teach_animal()
+            case 'add -t':
+                queries.add_type()
+            case 'add -g':
+                queries.add_group()
             case 'change -c':
                 pass
             case 'change -a':

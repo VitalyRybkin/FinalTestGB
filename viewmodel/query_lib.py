@@ -15,6 +15,14 @@ class Queries:
                         CREATE TABLE {table} AS
                         SELECT command_name, command_description
                         FROM animal_commands_list''',
+            'type_list': f'''
+                        CREATE TABLE {table} AS
+                        SELECT animal_type_name
+                        FROM animal_type''',
+            'group_list': f'''
+                        CREATE TABLE {table} AS
+                        SELECT animal_group_name
+                        FROM animal_group''',
             'animals_and_commands': f"""
                         CREATE TABLE {table} AS
                         SELECT a.animal_type_name, a.animal_name, acl.command_name 

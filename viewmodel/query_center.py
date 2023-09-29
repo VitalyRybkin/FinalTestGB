@@ -295,6 +295,62 @@ def check_similarity(command, commands) -> str:
             return item
 
 
+def add_type() -> None:
+    """
+    Function. Adds type of animal to a type list.
+    :return: None
+    """
+    while True:
+        while not name_not_found('animal_type',
+                                 'animal_type_name',
+                                 animal_type := input('Enter new animal type: ')):
+            print(f'\'{animal_type}\' type available in a list!')
+
+        headers, query = get_data('type_list')
+        types_list = [item[0] for item in query]
+        if similar := check_similarity(animal_type, types_list):
+            print(f'Looks like \'{animal_type}\' similar to \'{similar}\'')
+            prompt = input('Add anyway? (y/n): ')
+            if prompt.lower().strip() == 'y':
+                break
+        else:
+            break
+
+    if add_to_list(animal_type, 'animal_type', 'animal_type_name'):
+        print('List of types in nursery - \'show -t\'')
+    else:
+        print('Interrupted by user!')
+        return
+
+
+def add_group() -> None:
+    """
+    Function. Adds group of animals to a group list.
+    :return: None
+    """
+    while True:
+        while not name_not_found('animal_group',
+                                 'animal_group_name',
+                                 animal_group := input('Enter new animal group: ')):
+            print(f'\'{animal_group}\' group available in a list!')
+
+        headers, query = get_data('group_list')
+        groups_list = [item[0] for item in query]
+        if similar := check_similarity(animal_group, groups_list):
+            print(f'Looks like \'{animal_group}\' similar to \'{similar}\'')
+            prompt = input('Add anyway? (y/n): ')
+            if prompt.lower().strip() == 'y':
+                break
+        else:
+            break
+
+    if add_to_list(animal_group, 'animal_group', 'animal_group_name'):
+        print('List of groups in nursery - \'show -g\'')
+    else:
+        print('Interrupted by user!')
+        return
+
+
 def add_to_list(value: str, *args) -> bool:
     """
     Function. Adds new row to a db table.
@@ -303,8 +359,8 @@ def add_to_list(value: str, *args) -> bool:
     :return: True if added
     """
     added = False
-    add_type = input(f'Add \'{value}\' to list? (y/n) ')
-    if add_type.lower().strip() == 'y':
+    prompt = input(f'Add \'{value}\' to list? (y/n) ')
+    if prompt.lower().strip() == 'y':
         added = True
         get_query = Queries(args[0],
                             None,
