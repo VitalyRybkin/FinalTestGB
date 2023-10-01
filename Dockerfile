@@ -40,6 +40,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Switch to the non-privileged user to run the application.
 USER appuser
 
+#ENTRYPOINT dockerize -wait tcp://db:3306 -timeout 5s /hello
+
 # Copy the source code into the container.
 COPY . /app
 

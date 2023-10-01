@@ -7,24 +7,27 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+version: "3.9"
 services:
   db:
     image: mysql:8.0.33
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: 'HumanFriends'
-      MYSQL_USER: 'root'
+#      MYSQL_USER: 'root'
       MYSQL_PASSWORD: '123'
-#       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: 123
     restart: always
-#    volumes:
-#      - ./HumanFriends.sql:/docker-entrypoint-initdb.d/HumanFriends.sql
     volumes:
-      - db:/usr/local/var/mysql/HumanFriends/
-      - ./db/HumanFriends.sql mysql-container:/docker-entrypoint-initdb.d/HumanFriends.sql
+      - ./HumanFriends.sql:/docker-entrypoint-initdb.d/HumanFriends.sql
+#    volumes:
+#      - db:/usr/local/var/mysql/HumanFriends
+#      - ./HumanFriends:/docker-entrypoint-initdb.d/HumanFriends
     networks:
       - app-network
+
 
   app:
     build: .

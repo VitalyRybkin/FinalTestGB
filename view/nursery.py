@@ -1,4 +1,3 @@
-
 from view.printout import print_help, print_db_query
 from viewmodel import query_center as queries
 
@@ -36,6 +35,7 @@ def run_nursery() -> None:
             opt_list.append(k)
 
         user_input = input(f'Enter command {comm_list} and option {opt_list}: ')
+
         if not user_input.find(' -n') == -1:
             res = user_input.strip().split()
             n_parameter = res.pop()
@@ -94,3 +94,4 @@ def run_nursery() -> None:
                 exit()
             case _:
                 print(f'Achtung! Wrong command \'{user_input}\'! Try again!')
+
